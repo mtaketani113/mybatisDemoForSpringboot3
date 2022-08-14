@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Spring demo</title>
+</head>
+<body>
+  <h1>Customers</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>郵便番号</th>
+        <th>住所</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="customer : ${customers}">
+        <td th:text="${customer.id}"></td>
+        <td th:text="${customer.name}"></td>
+        <td th:text="${customer.post}"></td>
+        <td th:text="${customer.adress}"></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
