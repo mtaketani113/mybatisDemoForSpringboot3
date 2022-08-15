@@ -5,7 +5,10 @@
 <title>Spring demo</title>
 </head>
 <body>
-  <h1 th:text="#{customer.title}">Customers</h1>
+  <h1>
+    <a th:text="#{customer.title}" th:href="@{/}">顧客一覧</a>
+    > <span th:text="#{customer.detail}">詳細</span>
+  </h1>
   <table>
     <thead>
       <tr>
@@ -16,10 +19,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr th:each="customer : ${customers}">
-        <td>
-          <a th:text="${customer.id}" th:href="@{'/customer/' +${customer.id}}">1</a>
-        </td>
+      <tr>
+        <td th:text="${customer.id}"></td>
         <td th:text="${customer.name}"></td>
         <td th:text="${customer.post}"></td>
         <td th:text="${customer.address}"></td>

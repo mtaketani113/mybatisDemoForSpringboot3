@@ -4,10 +4,10 @@ SpringBoot3でMyBatisを動作させるデモです。
 
 ```SQL
 CREATE TABLE customer (
-    id           INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-    name    TEXT,
-    post    TEXT,
-    adress  TEXT,
+    id       INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+    name     TEXT,
+    post     TEXT,
+    address  TEXT,
 
     PRIMARY KEY(id)
 );

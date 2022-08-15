@@ -19,4 +19,8 @@ public class CustomerService {
         return customerMapper.searchAllCustomer();
     }
 
+    public Customer searchById(String id){
+        return customerMapper.searchById(id).orElse(new Customer());
+    }
+
 }

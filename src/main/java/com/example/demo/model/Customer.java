@@ -10,6 +10,6 @@ public class Customer {
     String id;
     String name;
     String post;
-    String adress;
+    String address;
     
 }
