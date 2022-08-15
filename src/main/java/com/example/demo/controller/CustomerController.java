@@ -19,7 +19,7 @@ public class CustomerController {
         model.addAttribute("customers"
             , customerService.searchAllCustomers());
         
-        return "customer";
+        return "customer/customer";
         
     }
 
@@ -29,7 +29,7 @@ public class CustomerController {
         model.addAttribute("customer"
             , customerService.searchById(id));
         
-        return "customerDetail";
+        return "customer/customerDetail";
         
     }
 }

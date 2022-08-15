@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{customer.title}">Spring demo</title>
+</head>
+<body>
+  <div layout:fragment="content">
+  <h1 th:text="#{customer.title}">Customers</h1>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th th:text="#{customer.name}">名前</th>
+        <th th:text="#{customer.post}">郵便番号</th>
+        <th th:text="#{customer.address}">住所</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="customer : ${customers}">
+        <td>
+          <a th:text="${customer.id}" th:href="@{'/customer/' +${customer.id}}">1</a>
+        </td>
+        <td th:text="${customer.name}"></td>
+        <td th:text="${customer.post}"></td>
+        <td th:text="${customer.address}"></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</body>
+</html>

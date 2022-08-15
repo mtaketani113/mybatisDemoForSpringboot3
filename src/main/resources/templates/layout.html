@@ -1,0 +1,26 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">Spring demo</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.0/css/bootstrap.min.css}">
+</head>
+<body>
+  <div layout:replace="~{header::header}"></div>
+  <div layout:replace="~{navi::navbar}"></div>
+  <div id="content" class="clearfix">
+    <div class="container">
+      <div layout:fragment="content" th:remove="tag"></div>
+      <a href="?lang=ja" th:href="@{?lang=ja}" th:text="#{footer.japanese}">日本語</a>
+      <br/>
+      <a href="?lang=en" th:href="@{?lang=en}" th:text="#{footer.english}">English</a>
+    </div>
+  </div>
+  <div layout:replace="~{footer::footer}"></div>
+  <script th:src="@{/webjars/bootstrap/5.2.0/js/bootstrap.min.js}"></script>
+  </body>
+</html>
