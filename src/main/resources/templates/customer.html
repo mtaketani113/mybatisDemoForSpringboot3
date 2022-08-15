@@ -5,14 +5,14 @@
 <title>Spring demo</title>
 </head>
 <body>
-  <h1>Customers</h1>
+  <h1 th:text="#{customer.title}">Customers</h1>
   <table>
     <thead>
       <tr>
         <th>ID</th>
-        <th>名前</th>
-        <th>郵便番号</th>
-        <th>住所</th>
+        <th th:text="#{customer.name}">名前</th>
+        <th th:text="#{customer.post}">郵便番号</th>
+        <th th:text="#{customer.address}">住所</th>
       </tr>
     </thead>
     <tbody>
@@ -24,5 +24,8 @@
       </tr>
     </tbody>
   </table>
+  <a href="?lang=ja" th:href="@{?lang=ja}">日本語</a>
+  <br/>
+  <a href="?lang=en" th:href="@{?lang=en}">English</a>
 </body>
 </html>
