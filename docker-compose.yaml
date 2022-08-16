@@ -20,7 +20,7 @@ services:
 
 # springアプリケーションのサービス
   spring:
-    image: spring-demo
+    build: ./
     container_name: "spring"
     restart: always
     ports:
