@@ -9,4 +9,25 @@
     <select id="searchById" resultType="com.example.demo.model.Customer">
         SELECT * FROM customer Where id=#{id}
     </select>
+    <insert id="create">
+        INSERT INTO customer (
+              name
+            , post
+            , address
+        ) VALUES (
+              #{customer.name}
+            , #{customer.post}
+            , #{customer.address}
+        )
+    </insert>
+    <update id="update">
+        UPDATE customer
+        SET name = #{customer.name}
+          , post = #{customer.post}
+          , address = #{customer.address}
+        WHERE id = #{customer.id}
+    </update>
+    <delete id="delete">
+        DELETE FROM customer WHERE id = #{id}
+    </delete>
 </mapper>

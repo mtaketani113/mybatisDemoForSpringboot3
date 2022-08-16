@@ -13,6 +13,8 @@
     <a th:text="#{customer.title}" th:href="@{/}">顧客一覧</a>
     > <span th:text="#{customer.detail}">詳細</span>
   </h1>
+  <form th:action="@{/customer/register}" th:object="${customer}"
+  method="post">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -24,13 +26,25 @@
     </thead>
     <tbody>
       <tr>
-        <td th:text="${customer.id}"></td>
-        <td th:text="${customer.name}"></td>
-        <td th:text="${customer.post}"></td>
-        <td th:text="${customer.address}"></td>
+        <input type="hidden" th:field="*{id}">
+        <td th:text="${customer.id}">
+        </td>
+        <td>
+          <input type="text" th:field="*{name}">
+        </td>
+        <td>
+          <input type="text" th:field="*{post}">
+        </td>
+        <td>
+          <input type="text" th:field="*{address}">
+        </td>
       </tr>
     </tbody>
   </table>
+  <div>
+    <button class="btn btn-primary" type="submit">登録</button>
+  </div>
+  </form>
   </div>
 </body>
 </html>
