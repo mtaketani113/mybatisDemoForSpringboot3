@@ -2,6 +2,7 @@ package com.example.demo.Interceptor;
 
 import java.lang.reflect.Method;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -10,11 +11,15 @@ import org.springframework.web.method.HandlerMethod;
 
 import com.example.demo.annotation.Authorize;
 import com.example.demo.annotation.NonAuthorize;
+import com.example.demo.model.User;
+import com.example.demo.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
+
+    @Autowired UserService userService;
 
     @Override
     public boolean preHandle(
@@ -56,9 +61,9 @@ public class AuthorizationHandlerInterceptor implements HandlerInterceptor {
         return false;
       }
       //トークンを取得しidを取得する
-      // String token = authorization.substring(7);
-      // TODO トークンからID取得
-      // String id = getIdFromToken(token, "");
+      String token = authorization.substring(7);
+      // トークンからユーザ情報取得
+      User user = userService.searchUser(token);
       //TODO idの検証を行う
       return true;
     }

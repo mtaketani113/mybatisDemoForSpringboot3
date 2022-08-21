@@ -41,6 +41,7 @@ public class CustomerApiController {
     }
 
     @PostMapping(path = "/api/customer/update")
+    @Authorize
     public String update(@RequestBody Customer customer ) {
         customerService.register(customer);
         return "{\"result\": \"OK\"}";
