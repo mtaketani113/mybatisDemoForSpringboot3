@@ -16,7 +16,7 @@ public class UserApiController {
     
     @GetMapping("/api/user")
     @NonAuthorize
-    public User searchById(@RequestParam String accessToken) {
+    public User searchUser(@RequestParam String accessToken) {
         return userService.searchUser(accessToken);
     }
 }
