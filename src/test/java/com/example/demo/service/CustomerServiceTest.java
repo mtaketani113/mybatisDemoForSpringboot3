@@ -105,7 +105,7 @@ public class CustomerServiceTest {
 
         customer = customerService.searchAllCustomers().get(0);
 
-        // 更新
+        // 削除
         customerService.delete(customer.getId());
 
         List<Customer> results = customerService.searchAllCustomers();
