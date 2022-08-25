@@ -40,6 +40,77 @@ public class CustomerServiceTest {
         assertEquals(result.getName(), "name");
 
     }
-    
-    
+
+    @Test
+	public void 顧客の複数追加テスト() {
+
+        for(int i = 0; i < 10; i ++){
+            Customer customer = new Customer();
+            customer.setPost("post" + i);
+            customer.setAddress("address" + i);
+            customer.setName("name" + i);
+            customerService.register(customer);
+        }
+
+        List<Customer> results = customerService.searchAllCustomers();
+
+        assertEquals(results.size(), 10);
+
+        for(int i = 0; i < 10; i ++){
+            Customer result = results.get(i);
+            assertNotNull(result.getId());
+            assertEquals(result.getPost(), "post" + i);
+            assertEquals(result.getAddress(), "address" + i);
+            assertEquals(result.getName(), "name" + i);
+        }
+    }
+
+    @Test
+	public void 顧客の更新テスト() {
+
+        Customer customer = new Customer();
+        customer.setPost("post");
+        customer.setAddress("address");
+        customer.setName("name");
+        customerService.register(customer);
+
+        customer = customerService.searchAllCustomers().get(0);
+
+        // 更新
+        customer.setPost("changedPost");
+        customer.setAddress("changedAddress");
+        customer.setName("changedName");
+        customerService.register(customer);
+
+        List<Customer> results = customerService.searchAllCustomers();
+
+        assertEquals(results.size(), 1);
+        Customer result = results.get(0);
+
+        assertNotNull(result.getId());
+        assertEquals(result.getPost(), "changedPost");
+        assertEquals(result.getAddress(), "changedAddress");
+        assertEquals(result.getName(), "changedName");
+
+    }
+
+    @Test
+	public void 顧客の削除テスト() {
+
+        Customer customer = new Customer();
+        customer.setPost("post");
+        customer.setAddress("address");
+        customer.setName("name");
+        customerService.register(customer);
+
+        customer = customerService.searchAllCustomers().get(0);
+
+        // 更新
+        customerService.delete(customer.getId());
+
+        List<Customer> results = customerService.searchAllCustomers();
+
+        assertEquals(results.size(),0);
+
+    }   
 }
