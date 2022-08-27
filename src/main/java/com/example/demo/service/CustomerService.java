@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.aop.LatencyMonitor;
 import com.example.demo.model.Customer;
 import com.example.demo.repository.CustomerMapper;
 
@@ -16,6 +17,7 @@ public class CustomerService {
     
     @Autowired CustomerMapper customerMapper;
 
+    @LatencyMonitor
     public List<Customer> searchAllCustomers(){
         return customerMapper.searchAllCustomer();
     }
