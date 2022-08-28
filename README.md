@@ -18,3 +18,20 @@ spring.datasource.url=${DATASOURCE_URL:jdbc:mysql://localhost:3306/demo}
 spring.datasource.username=${DATASOURCE_USERNAME:demo}
 spring.datasource.password=${DATASOURCE_PASSWORD:demo}
 ```
+
+Googleの認証を利用しているので、Google Cloud APIでClientIdとSecretを取得して
+以下の環境変数に設定する必要があります。
+
+```
+spring.security.oauth2.client.registration.google.client-id=${OAUTH2_GOOGLE_CLIENT_ID}
+spring.security.oauth2.client.registration.google.client-secret=${OAUTH2_GOOGLE_CLIENT_SECRET}
+```
+
+
+また、以下のコマンドでdockerを利用して環境を構築することも可能
+```
+docker-compose up -d
+```
+
+Dockerで作成した場合、ポート番号は`9090`に設定しているので
+`http://localhost:9090/demo`でアクセス可能。
