@@ -19,7 +19,7 @@ spring.datasource.username=${DATASOURCE_USERNAME:demo}
 spring.datasource.password=${DATASOURCE_PASSWORD:demo}
 ```
 
-Googleの認証を利用しているので、Google Cloud APIでClientIdとSecretを取得して
+Googleの認証を利用しているので、Google Cloud でClientIdとSecretを取得して
 以下の環境変数に設定する必要があります。
 
 ```
