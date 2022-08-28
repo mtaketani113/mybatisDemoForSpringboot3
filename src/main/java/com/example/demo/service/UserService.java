@@ -20,20 +20,19 @@ public class UserService {
 
     @Autowired
 	private HttpProxyProperties httpProxyProperties;
+    @Autowired
+    private RestTemplate restTemplate;
 
     public User searchUser(String accessToken){
         
-        RestTemplate rest = null;
-        if(StringUtils.isEmpty(httpProxyProperties.getProxyServerHost())
-            || StringUtils.isEmpty(httpProxyProperties.getProxyServerPort())){
-            rest = new RestTemplate();
-        }else{
+        if(!StringUtils.isEmpty(httpProxyProperties.getProxyServerHost())
+            && !StringUtils.isEmpty(httpProxyProperties.getProxyServerPort())){
             Proxy proxy = new Proxy(Type.HTTP
                 , new InetSocketAddress(httpProxyProperties.getProxyServerHost()
                 , Integer.parseInt(httpProxyProperties.getProxyServerPort())));
             SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
             requestFactory.setProxy(proxy);
-            rest = new RestTemplate(requestFactory);
+            restTemplate.setRequestFactory(requestFactory);
         }
 
         final String url = "https://www.googleapis.com/oauth2/v1/userinfo";
@@ -43,7 +42,7 @@ public class UserService {
             .get(url)
             .header("Authorization", "Bearer " + accessToken)
             .build();
-        ResponseEntity<User> response = rest.exchange(requestEntity, User.class);
+        ResponseEntity<User> response = restTemplate.exchange(requestEntity, User.class);
 
         return response.getBody();
     }
