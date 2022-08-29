@@ -1,13 +1,24 @@
 package com.example.demo;
 
+import java.io.IOException;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +33,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.oauth2Login()
 			.and()
             .cors()
-            .configurationSource(this.corsConfigurationSource());
+            .configurationSource(this.corsConfigurationSource())
+            .and()
+            .exceptionHandling()
+			.defaultAuthenticationEntryPointFor(
+				ajaxAuthenticationEntryPoint(),
+				ajaxRequestMatcher()
+			);
+	}
+
+	@Bean
+    public AuthenticationEntryPoint ajaxAuthenticationEntryPoint() {
+        return new AuthenticationEntryPoint() {
+
+            @Override
+            public void commence(HttpServletRequest request, HttpServletResponse response,
+                AuthenticationException authException) throws IOException, ServletException {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            }
+        };
+    }
+
+    @Bean
+    public RequestMatcher ajaxRequestMatcher() {
+        return new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest");
     }
 
     @Override
