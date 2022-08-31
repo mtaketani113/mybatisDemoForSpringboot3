@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,5 +22,8 @@ public interface FileMapper {
 
     @Select("SELECT id, file_name, file_data FROM file_manager")
     List<File> fileList();
+
+    @Delete("DELETE FROM file_manager WHERE id = #{id}")
+    void delete(int id);
 
 }

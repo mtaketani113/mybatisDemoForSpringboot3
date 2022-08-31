@@ -30,4 +30,8 @@ public class FileService {
         return fileMapper.fileList();
     }
 
+    public void deleteFile(int id){
+        fileMapper.delete(id);
+    }
+
 }
