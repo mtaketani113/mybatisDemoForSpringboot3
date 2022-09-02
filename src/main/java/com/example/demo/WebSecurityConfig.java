@@ -39,6 +39,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.defaultAuthenticationEntryPointFor(
 				ajaxAuthenticationEntryPoint(),
 				ajaxRequestMatcher()
+			).and()
+            .exceptionHandling()
+			.defaultAuthenticationEntryPointFor(
+				ajaxAuthenticationEntryPoint(),
+				axiosRequestMatcher()
 			);
 	}
 
@@ -57,6 +62,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public RequestMatcher ajaxRequestMatcher() {
         return new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest");
+    }
+
+    @Bean
+    public RequestMatcher axiosRequestMatcher() {
+        return new RequestHeaderRequestMatcher("Sec-Fetch-Mode", "cors");
     }
 
     @Override
