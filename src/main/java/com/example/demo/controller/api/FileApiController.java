@@ -31,11 +31,6 @@ public class FileApiController {
     @Authorize
     public String fileDownload(
         @RequestParam("fileDatas") MultipartFile multipartFile){
-        // ファイルが空の場合は異常終了
-        if(multipartFile.isEmpty()){
-            // 異常終了時の処理
-            return "{\"result\": \"OK\"}";
-        }
 
         try {
             fileService.uploadFile(multipartFile.getOriginalFilename(), multipartFile.getBytes());
