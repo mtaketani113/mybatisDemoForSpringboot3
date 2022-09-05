@@ -20,7 +20,7 @@ public interface FileMapper {
     @Select("SELECT file_name, file_data FROM file_manager where id = #{id}")
     Optional<File> download(int id);
 
-    @Select("SELECT id, file_name, file_data FROM file_manager")
+    @Select("SELECT id, file_name, file_data FROM file_manager ORDER BY id")
     List<File> fileList();
 
     @Delete("DELETE FROM file_manager WHERE id = #{id}")
