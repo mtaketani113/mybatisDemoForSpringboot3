@@ -37,8 +37,7 @@ public class UserService {
 
         final String url = "https://www.googleapis.com/oauth2/v1/userinfo";
 
-        // ResponseEntity<User> response = rest.getForEntity(url, User.class, HttpMethod.GET, header);
-        RequestEntity requestEntity = RequestEntity
+        RequestEntity<?> requestEntity = RequestEntity
             .get(url)
             .header("Authorization", "Bearer " + accessToken)
             .build();

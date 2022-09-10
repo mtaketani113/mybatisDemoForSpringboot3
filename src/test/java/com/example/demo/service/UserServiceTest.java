@@ -41,7 +41,7 @@ public class UserServiceTest {
             .thenReturn("");
         Mockito.when(restTemplate.exchange(
               any(), eq(User.class)))
-            .thenReturn(new ResponseEntity(user, HttpStatus.OK));
+            .thenReturn(new ResponseEntity<>(user, HttpStatus.OK));
 
         User result = userService.searchUser("token");
         
