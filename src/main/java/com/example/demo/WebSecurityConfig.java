@@ -3,8 +3,10 @@ package com.example.demo;
 import java.io.IOException;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,16 +20,17 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/login", "/api/**").permitAll()
+			.antMatchers("/login").permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
-            .oauth2Login()
+			.oauth2Login()
 			.and()
             .cors()
             .configurationSource(this.corsConfigurationSource())
@@ -42,7 +45,6 @@ public class WebSecurityConfig {
 				ajaxAuthenticationEntryPoint(),
 				axiosRequestMatcher()
 			);
-            
         return http.build();
 	}
 
@@ -66,6 +68,11 @@ public class WebSecurityConfig {
     @Bean
     public RequestMatcher axiosRequestMatcher() {
         return new RequestHeaderRequestMatcher("Sec-Fetch-Mode", "cors");
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().mvcMatchers("/api/**");
     }
 
     private CorsConfigurationSource corsConfigurationSource() {
