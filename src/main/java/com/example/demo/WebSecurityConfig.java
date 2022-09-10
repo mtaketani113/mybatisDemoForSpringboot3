@@ -3,13 +3,11 @@ package com.example.demo;
 import java.io.IOException;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
@@ -20,17 +18,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+public class WebSecurityConfig {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/login").permitAll()
+			.antMatchers("/login", "/api/**").permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
-			.oauth2Login()
+            .oauth2Login()
 			.and()
             .cors()
             .configurationSource(this.corsConfigurationSource())
@@ -45,6 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				ajaxAuthenticationEntryPoint(),
 				axiosRequestMatcher()
 			);
+            
+        return http.build();
 	}
 
 	@Bean
@@ -67,11 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public RequestMatcher axiosRequestMatcher() {
         return new RequestHeaderRequestMatcher("Sec-Fetch-Mode", "cors");
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/api/**");
     }
 
     private CorsConfigurationSource corsConfigurationSource() {
