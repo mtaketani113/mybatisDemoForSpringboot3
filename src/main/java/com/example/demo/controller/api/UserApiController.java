@@ -11,9 +11,10 @@ import com.example.demo.service.UserService;
 
 @RestController
 public class UserApiController {
-    
-    @Autowired UserService userService;
-    
+
+    @Autowired
+    UserService userService;
+
     @GetMapping("/api/user")
     @NonAuthorize
     public User searchUser(@RequestParam String accessToken) {

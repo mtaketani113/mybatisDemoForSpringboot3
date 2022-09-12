@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-    
+
     String id;
     String email;
     Boolean verifiedEmail;

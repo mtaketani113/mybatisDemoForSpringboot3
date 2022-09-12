@@ -23,37 +23,24 @@ import jakarta.servlet.http.HttpServletResponse;
 public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/login").permitAll()
-			.anyRequest()
-			.authenticated()
-			.and()
-			.oauth2Login()
-			.and()
-            .cors()
-            .configurationSource(this.corsConfigurationSource())
-            .and()
-            .exceptionHandling()
-			.defaultAuthenticationEntryPointFor(
-				ajaxAuthenticationEntryPoint(),
-				ajaxRequestMatcher()
-			).and()
-            .exceptionHandling()
-			.defaultAuthenticationEntryPointFor(
-				ajaxAuthenticationEntryPoint(),
-				axiosRequestMatcher()
-			);
+        http.authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated()
+                .and().oauth2Login().and().cors()
+                .configurationSource(this.corsConfigurationSource()).and().exceptionHandling()
+                .defaultAuthenticationEntryPointFor(ajaxAuthenticationEntryPoint(),
+                        ajaxRequestMatcher())
+                .and().exceptionHandling().defaultAuthenticationEntryPointFor(
+                        ajaxAuthenticationEntryPoint(), axiosRequestMatcher());
         return http.build();
-	}
+    }
 
-	@Bean
+    @Bean
     public AuthenticationEntryPoint ajaxAuthenticationEntryPoint() {
         return new AuthenticationEntryPoint() {
 
             @Override
             public void commence(HttpServletRequest request, HttpServletResponse response,
-                AuthenticationException authException) throws IOException, ServletException {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    AuthenticationException authException) throws IOException, ServletException {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             }
         };
     }
@@ -79,8 +66,8 @@ public class WebSecurityConfig {
         corsConfiguration.addAllowedMethod("POST");
         corsConfiguration.addAllowedMethod("PUT");
         corsConfiguration.addAllowedMethod("DELETE");
-		corsConfiguration.addAllowedHeader("Authorization");
-		corsConfiguration.addAllowedHeader("Content-Type");
+        corsConfiguration.addAllowedHeader("Authorization");
+        corsConfiguration.addAllowedHeader("Content-Type");
         corsConfiguration.addAllowedOrigin("http://localhost:3000");
 
         UrlBasedCorsConfigurationSource corsSource = new UrlBasedCorsConfigurationSource();

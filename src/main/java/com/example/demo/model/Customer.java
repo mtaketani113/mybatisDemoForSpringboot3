@@ -11,5 +11,5 @@ public class Customer {
     String name;
     String post;
     String address;
-    
+
 }

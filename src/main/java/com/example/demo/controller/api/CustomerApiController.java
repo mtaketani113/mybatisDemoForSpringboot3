@@ -18,9 +18,10 @@ import com.example.demo.service.CustomerService;
 
 @RestController
 public class CustomerApiController {
-    
-    @Autowired CustomerService customerService;
-    
+
+    @Autowired
+    CustomerService customerService;
+
     @GetMapping("/api/customer")
     @NonAuthorize
     public List<Customer> searchById() {
@@ -35,14 +36,14 @@ public class CustomerApiController {
 
     @PutMapping(path = "/api/customer/new")
     @Authorize
-    public String create(@RequestBody Customer customer ) {
+    public String create(@RequestBody Customer customer) {
         customerService.register(customer);
         return "{\"result\": \"OK\"}";
     }
 
     @PostMapping(path = "/api/customer/update")
     @Authorize
-    public String update(@RequestBody Customer customer ) {
+    public String update(@RequestBody Customer customer) {
         customerService.register(customer);
         return "{\"result\": \"OK\"}";
     }

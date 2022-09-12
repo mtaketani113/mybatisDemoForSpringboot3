@@ -24,13 +24,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 public class FileApiController {
-    
-    @Autowired FileService fileService;
-    
+
+    @Autowired
+    FileService fileService;
+
     @PostMapping("/api/file")
     @Authorize
-    public String fileDownload(
-        @RequestParam("fileDatas") MultipartFile multipartFile){
+    public String fileDownload(@RequestParam("fileDatas") MultipartFile multipartFile) {
 
         try {
             fileService.uploadFile(multipartFile.getOriginalFilename(), multipartFile.getBytes());
@@ -41,7 +41,7 @@ public class FileApiController {
         return "{\"result\": \"OK\"}";
     }
 
-    @GetMapping(value="/api/file/{id:^[0-9]+$}")
+    @GetMapping(value = "/api/file/{id:^[0-9]+$}")
     public void fileDownload(HttpServletResponse response, @PathVariable("id") String id) {
 
         try (OutputStream os = response.getOutputStream()) {
@@ -51,7 +51,8 @@ public class FileApiController {
             byte[] fileByteArray = Optional.ofNullable(file.getFileData()).orElse(new byte[0]);
 
             response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(file.getFileName(), "UTF-8"));
+            response.setHeader("Content-Disposition",
+                    "attachment; filename=" + URLEncoder.encode(file.getFileName(), "UTF-8"));
             response.setContentLength(fileByteArray.length);
 
             os.write(fileByteArray);
@@ -61,7 +62,7 @@ public class FileApiController {
         }
     }
 
-    @GetMapping(value="/api/file")
+    @GetMapping(value = "/api/file")
     @NonAuthorize
     public List<File> fileList() {
         return fileService.searchFiles();
