@@ -7,9 +7,8 @@ import lombok.Setter;
 @Setter
 public class Customer {
 
-    String id;
-    String name;
-    String post;
-    String address;
-
+  String id;
+  String name;
+  String post;
+  String address;
 }

@@ -7,12 +7,12 @@ import lombok.Setter;
 @Setter
 public class User {
 
-    String id;
-    String email;
-    Boolean verifiedEmail;
-    String name;
-    String givenName;
-    String familyName;
-    String picture;
-    String locale;
+  String id;
+  String email;
+  Boolean verifiedEmail;
+  String name;
+  String givenName;
+  String familyName;
+  String picture;
+  String locale;
 }

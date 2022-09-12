@@ -1,37 +1,34 @@
 package com.example.demo.service;
 
+import com.example.demo.aop.LatencyMonitor;
+import com.example.demo.model.File;
+import com.example.demo.repository.FileMapper;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.aop.LatencyMonitor;
-import com.example.demo.model.File;
-import com.example.demo.repository.FileMapper;
-
 @Service
 @Transactional
 public class FileService {
-    
-    @Autowired FileMapper fileMapper;
 
-    @LatencyMonitor
-    public void uploadFile(String fileName, byte[] fileData){
-        fileMapper.upload(fileName, fileData);
-    }
+  @Autowired FileMapper fileMapper;
 
-    @LatencyMonitor
-    public File downloadFile(int id){
-        return fileMapper.download(id).orElse(new File());
-    }
+  @LatencyMonitor
+  public void uploadFile(String fileName, byte[] fileData) {
+    fileMapper.upload(fileName, fileData);
+  }
 
-    public List<File> searchFiles(){
-        return fileMapper.fileList();
-    }
+  @LatencyMonitor
+  public File downloadFile(int id) {
+    return fileMapper.download(id).orElse(new File());
+  }
 
-    public void deleteFile(int id){
-        fileMapper.delete(id);
-    }
+  public List<File> searchFiles() {
+    return fileMapper.fileList();
+  }
 
+  public void deleteFile(int id) {
+    fileMapper.delete(id);
+  }
 }
