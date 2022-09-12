@@ -17,7 +17,7 @@ public interface CustomerMapper {
 
     void create(@Param("customer") Customer customer);
 
-    void update(@Param("customer")Customer customer);
+    void update(@Param("customer") Customer customer);
 
     void delete(String id);
 }
