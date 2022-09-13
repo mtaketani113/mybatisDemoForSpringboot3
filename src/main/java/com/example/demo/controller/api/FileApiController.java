@@ -42,7 +42,7 @@ public class FileApiController {
 
     try (OutputStream os = response.getOutputStream()) {
 
-      File file = fileService.downloadFile(Integer.valueOf(id));
+      File file = fileService.downloadFile(Integer.parseInt(id));
 
       byte[] fileByteArray = Optional.ofNullable(file.getFileData()).orElse(new byte[0]);
 
@@ -68,7 +68,7 @@ public class FileApiController {
   @DeleteMapping("/api/file/delete/{id:^[0-9]+$}")
   @Authorize
   public String delete(@PathVariable("id") String id) {
-    fileService.deleteFile(Integer.valueOf(id));
+    fileService.deleteFile(Integer.parseInt(id));
     return "{\"result\": \"OK\"}";
   }
 }
