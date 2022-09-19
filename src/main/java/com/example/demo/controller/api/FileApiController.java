@@ -13,7 +13,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,12 +36,12 @@ public class FileApiController {
     return "{\"result\": \"OK\"}";
   }
 
-  @GetMapping(value = "/api/file/{id:^[0-9]+$}")
-  public void fileDownload(HttpServletResponse response, @PathVariable("id") String id) {
+  @GetMapping(value = "/api/file/donwload")
+  public void fileDownload(HttpServletResponse response, @RequestParam("id") String id) {
 
     try (OutputStream os = response.getOutputStream()) {
 
-      File file = fileService.downloadFile(Integer.parseInt(id));
+      File file = fileService.downloadFile(id);
 
       byte[] fileByteArray = Optional.ofNullable(file.getFileData()).orElse(new byte[0]);
 
@@ -65,10 +64,10 @@ public class FileApiController {
     return fileService.searchFiles();
   }
 
-  @DeleteMapping("/api/file/delete/{id:^[0-9]+$}")
+  @DeleteMapping("/api/file/delete")
   @Authorize
-  public String delete(@PathVariable("id") String id) {
-    fileService.deleteFile(Integer.parseInt(id));
+  public String delete(@RequestParam("id") String id) {
+    fileService.deleteFile(id);
     return "{\"result\": \"OK\"}";
   }
 }
