@@ -31,15 +31,16 @@ public class FileService {
   public List<File> searchFiles() {
     List<File> fileList = fileMapper.fileList();
     // IDを暗号化
-    fileList.forEach(s -> {
-      try {
-        String encodedResult = URLEncoder.encode(Crypt.encrypt(s.getId()), "UTF-8");
-        s.setId(encodedResult);
-      } catch (UnsupportedEncodingException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-    });
+    fileList.forEach(
+        s -> {
+          try {
+            String encodedResult = URLEncoder.encode(Crypt.encrypt(s.getId()), "UTF-8");
+            s.setId(encodedResult);
+          } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+          }
+        });
     return fileMapper.fileList();
   }
 
