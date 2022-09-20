@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.aop.LatencyMonitor;
-import com.example.demo.common.Crypt;
 import com.example.demo.model.File;
 import com.example.demo.repository.FileMapper;
+import com.mtaketani.crypto.CryptoAes;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -24,7 +24,8 @@ public class FileService {
 
   @LatencyMonitor
   public File downloadFile(String encryptId) {
-    int id = Integer.parseInt(Crypt.decrypt(encryptId));
+    
+    int id = Integer.parseInt(CryptoAes.decrypto(encryptId));
     return fileMapper.download(id).orElse(new File());
   }
 
@@ -34,7 +35,7 @@ public class FileService {
     fileList.forEach(
         s -> {
           try {
-            String encodedResult = URLEncoder.encode(Crypt.encrypt(s.getId()), "UTF-8");
+            String encodedResult = URLEncoder.encode(CryptoAes.encrypto(s.getId()), "UTF-8");
             s.setId(encodedResult);
           } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
@@ -45,7 +46,7 @@ public class FileService {
   }
 
   public void deleteFile(String encryptId) {
-    int id = Integer.parseInt(Crypt.decrypt(encryptId));
+    int id = Integer.parseInt(CryptoAes.decrypto(encryptId));
     fileMapper.delete(id);
   }
 }
