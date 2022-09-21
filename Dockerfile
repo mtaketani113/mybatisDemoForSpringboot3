@@ -1,5 +1,7 @@
 FROM gradle:7.5.1-jdk18-alpine AS build
 COPY --chown=gradle:gradle . /home/gradle/src
+ARG GITHUB_ACTOR
+ARG GITHUB_TOKEN
 WORKDIR /home/gradle/src
 RUN gradle clean build -x test -x spotbugsMain -x spotbugsTest --no-daemon 
 
