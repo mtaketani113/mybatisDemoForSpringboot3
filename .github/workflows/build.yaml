@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
     paths-ignore:
       - '**/README.md'
+      - '**/docker.yaml'
   pull_request:
     branches: [ "master" ]
 

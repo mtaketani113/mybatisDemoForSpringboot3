@@ -31,4 +31,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: GITHUB_ACTOR=${{ github.actor }},GITHUB_TOKEN=${{ secrets.ACCESS_TOKEN }}
+          build-args: GITHUB_ACTOR=${{ secrets.USER_NAME }},GITHUB_TOKEN=${{ secrets.ACCESS_TOKEN }}
