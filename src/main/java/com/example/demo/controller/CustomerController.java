@@ -23,9 +23,9 @@ public class CustomerController {
     return "customer/customer";
   }
 
-  @PostMapping("/customer/new")
+  @GetMapping("/customer/new")
   public String add(Model model) {
-    model.addAttribute("customer", new Customer());
+    model.addAttribute("customer", Customer.builder().build());
 
     return "customer/customerDetail";
   }
@@ -36,7 +36,7 @@ public class CustomerController {
     return "redirect:/";
   }
 
-  @PostMapping("/customer/delete/{id:^[0-9]+$}")
+  @GetMapping("/customer/delete/{id:^[0-9]+$}")
   public String delete(@PathVariable("id") String id) {
     customerService.delete(id);
     return "redirect:/";
