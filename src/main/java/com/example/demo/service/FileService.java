@@ -3,6 +3,7 @@ package com.example.demo.service;
 import static com.mtaketani.crypto.CryptoAes.*;
 
 import com.example.demo.aop.LatencyMonitor;
+import com.example.demo.exceptions.DemoRuntimeException;
 import com.example.demo.model.File;
 import com.example.demo.repository.FileMapper;
 import java.io.UnsupportedEncodingException;
@@ -39,8 +40,7 @@ public class FileService {
             String encodedResult = URLEncoder.encode(encrypto(s.getId()), "UTF-8");
             s.setId(encodedResult);
           } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new DemoRuntimeException(e);
           }
         });
     return fileMapper.fileList();
