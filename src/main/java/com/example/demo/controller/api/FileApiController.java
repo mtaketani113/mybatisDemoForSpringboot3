@@ -2,6 +2,7 @@ package com.example.demo.controller.api;
 
 import com.example.demo.annotation.Authorize;
 import com.example.demo.annotation.NonAuthorize;
+import com.example.demo.exceptions.DemoRuntimeException;
 import com.example.demo.model.File;
 import com.example.demo.service.FileService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,8 +31,7 @@ public class FileApiController {
     try {
       fileService.uploadFile(multipartFile.getOriginalFilename(), multipartFile.getBytes());
     } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      throw new DemoRuntimeException(e);
     }
     return "{\"result\": \"OK\"}";
   }
