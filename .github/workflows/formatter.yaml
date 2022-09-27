@@ -17,8 +17,8 @@ jobs:
         distribution: 'temurin'
     - name: Git settings
       run: |
-        git config --local user.name "mtaketani113"
-        git config --local user.email "47836003+mtaketani113@users.noreply.github.com"
+        git config --local user.name ${{ secrets.USER_NAME }}
+        git config --local user.email ${{ secrets.USER_EMAIL }}
     - name: Code format
       run: |
         wget -q -O google-java-format.jar \
