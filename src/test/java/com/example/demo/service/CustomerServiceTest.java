@@ -21,10 +21,7 @@ public class CustomerServiceTest {
   @Test
   public void 顧客の追加テスト() {
 
-    Customer customer = Customer.builder()
-      .post("post")
-      .address("address")
-      .name("name").build();
+    Customer customer = Customer.builder().post("post").address("address").name("name").build();
     customerService.register(customer);
 
     List<Customer> results = customerService.searchAllCustomers();
@@ -42,10 +39,8 @@ public class CustomerServiceTest {
   public void 顧客の複数追加テスト() {
 
     for (int i = 0; i < 10; i++) {
-      Customer customer = Customer.builder()
-        .post("post" + i)
-        .address("address" + i)
-        .name("name" + i).build();
+      Customer customer =
+          Customer.builder().post("post" + i).address("address" + i).name("name" + i).build();
       customerService.register(customer);
     }
 
@@ -65,20 +60,19 @@ public class CustomerServiceTest {
   @Test
   public void 顧客の更新テスト() {
 
-    Customer customer = Customer.builder()
-      .post("post")
-      .address("address")
-      .name("name").build();
+    Customer customer = Customer.builder().post("post").address("address").name("name").build();
     customerService.register(customer);
 
     customer = customerService.searchAllCustomers().get(0);
 
     // 更新
-    Customer customerChanged = Customer.builder()
-      .id(customer.getId())
-      .post("changedPost")
-      .address("changedAddress")
-      .name("changedName").build();
+    Customer customerChanged =
+        Customer.builder()
+            .id(customer.getId())
+            .post("changedPost")
+            .address("changedAddress")
+            .name("changedName")
+            .build();
     customerService.register(customerChanged);
 
     List<Customer> results = customerService.searchAllCustomers();
@@ -95,10 +89,7 @@ public class CustomerServiceTest {
   @Test
   public void 顧客の削除テスト() {
 
-    Customer customer = Customer.builder()
-      .post("post")
-      .address("address")
-      .name("name").build();
+    Customer customer = Customer.builder().post("post").address("address").name("name").build();
     customerService.register(customer);
 
     customer = customerService.searchAllCustomers().get(0);
