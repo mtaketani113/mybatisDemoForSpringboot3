@@ -1,9 +1,10 @@
 package com.example.demo.service;
 
+import static com.mtaketani.crypto.CryptoAes.*;
+
 import com.example.demo.aop.LatencyMonitor;
 import com.example.demo.model.File;
 import com.example.demo.repository.FileMapper;
-import static com.mtaketani.crypto.CryptoAes.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -24,7 +25,7 @@ public class FileService {
 
   @LatencyMonitor
   public File downloadFile(String encryptId) {
-    
+
     int id = Integer.parseInt(decrypto(encryptId));
     return fileMapper.download(id).orElse(new File());
   }
