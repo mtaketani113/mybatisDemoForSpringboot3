@@ -32,6 +32,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
+    - uses: actions/checkout@v3
     - name: 'Set up latest Oracle JDK 19'
       uses: oracle-actions/setup-java@v1
       with:
