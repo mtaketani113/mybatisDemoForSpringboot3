@@ -46,4 +46,6 @@ docker-compose up -d
 ```
 
 Dockerで作成した場合、ポート番号は`9090`に設定しているので
-`http://localhost:9090/demo`でアクセス可能。
+`http://localhost:9090/demo`でアクセス可能です。
+
+変更したい場合は、`docker-compose.yaml`の`ports`を変更ください
