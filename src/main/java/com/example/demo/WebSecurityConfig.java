@@ -4,6 +4,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +17,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -25,9 +28,7 @@ public class WebSecurityConfig {
         .anyRequest().authenticated())
         .oauth2Login()
         .and()
-        .cors()
-        .configurationSource(this.corsConfigurationSource())
-        .and()
+        .cors(withDefaults())
         .exceptionHandling()
         .defaultAuthenticationEntryPointFor(ajaxAuthenticationEntryPoint(), ajaxRequestMatcher())
         .and()
@@ -61,15 +62,13 @@ public class WebSecurityConfig {
     return new RequestHeaderRequestMatcher("Sec-Fetch-Mode", "cors");
   }
 
-  private CorsConfigurationSource corsConfigurationSource() {
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.addAllowedMethod("GET");
-    corsConfiguration.addAllowedMethod("POST");
-    corsConfiguration.addAllowedMethod("PUT");
-    corsConfiguration.addAllowedMethod("DELETE");
-    corsConfiguration.addAllowedHeader("Authorization");
-    corsConfiguration.addAllowedHeader("Content-Type");
-    corsConfiguration.addAllowedOrigin("http://localhost:3000");
+    corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+    corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+    corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+    corsConfiguration.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource corsSource = new UrlBasedCorsConfigurationSource();
     corsSource.registerCorsConfiguration("/**", corsConfiguration);
