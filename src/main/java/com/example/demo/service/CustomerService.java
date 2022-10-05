@@ -21,7 +21,7 @@ public class CustomerService {
   }
 
   public Customer searchById(String id) {
-    return customerMapper.searchById(id).orElse(Customer.builder().build());
+    return customerMapper.searchById(id).orElse(new Customer());
   }
 
   public void register(Customer customer) {

@@ -25,7 +25,7 @@ public class CustomerController {
 
   @GetMapping("/customer/new")
   public String add(Model model) {
-    model.addAttribute("customer", Customer.builder().build());
+    model.addAttribute("customer", new Customer());
 
     return "customer/customerDetail";
   }
