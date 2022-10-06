@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/demo}
+    username: ${DATASOURCE_USERNAME:demo}
+    password: ${DATASOURCE_PASSWORD:demo}
+    driver-class-name: com.mysql.jdbc.Driver
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${OAUTH2_GOOGLE_CLIENT_ID}
+            client-secret: ${OAUTH2_GOOGLE_CLIENT_SECRET}
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+server:
+  servlet:
+    context-path: ${DEMO_APPLI_CONTEXT_PATH:/demo}
+logging:
+  level:
+    com:
+      example:
+        demo: info
