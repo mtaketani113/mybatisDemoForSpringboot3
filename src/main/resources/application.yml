@@ -3,7 +3,7 @@ spring:
     url: ${DATASOURCE_URL:jdbc:mysql://localhost:3306/demo}
     username: ${DATASOURCE_USERNAME:demo}
     password: ${DATASOURCE_PASSWORD:demo}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: ${DATASOURCE_DRIVER:com.mysql.jdbc.Driver}
   security:
     oauth2:
       client:
