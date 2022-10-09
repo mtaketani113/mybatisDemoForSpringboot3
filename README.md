@@ -24,6 +24,9 @@ CREATE TABLE IF NOT EXISTS file_manager (
     PRIMARY KEY(id)
 );
 ```
+
+Oracleも利用可能にする予定。
+
 接続情報を編集または環境変数を登録してください。
 ```
 spring.datasource.url=${DATASOURCE_URL:jdbc:mysql://localhost:3306/demo}
