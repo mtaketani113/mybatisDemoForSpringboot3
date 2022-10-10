@@ -15,7 +15,7 @@ public class DemoControllerAdvice {
   @ExceptionHandler({DemoRuntimeException.class})
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public ErrorResponse handleEmployeeNotFoundException(DemoRuntimeException e) {
-    log.error("Error:", e.getMessage());
-    return new ErrorResponse("demoError", "Demo error occurred.");
+    log.error(e.getErrorCode(), e.getMessage());
+    return new ErrorResponse(e.getErrorCode(), e.getMessage());
   }
 }
