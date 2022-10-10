@@ -44,7 +44,8 @@ public class DemoControllerAdviceTest {
     @Test
     public void handleEmployeeNotFoundExceptionTest() throws Exception {
 
-        when(customerService.searchById(anyString())).thenThrow(new DemoRuntimeException(""));
+        when(customerService.searchById(anyString()))
+            .thenThrow(new DemoRuntimeException("demoError", "Demo error occurred."));
 
         var responseString = mockMvc.perform(get("/api/customer/1"))
                 .andExpect(status().isInternalServerError())
