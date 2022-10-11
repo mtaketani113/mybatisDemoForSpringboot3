@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
@@ -26,15 +25,15 @@ public class UserServiceTest {
   @Test
   public void ユーザ検証のテスト() {
 
-    User user = new User();
-    user.setEmail("email@test");
-    user.setFamilyName("familyName");
-    user.setGivenName("givenName");
-    user.setId("123");
-    user.setLocale("locale");
-    user.setName("name");
-    user.setPicture("picture");
-    user.setVerifiedEmail(true);
+    User user = User.builder()
+      .email("email@test")
+      .familyName("familyName")
+      .givenName("givenName")
+      .id("123")
+      .locale("locale")
+      .name("name")
+      .picture("picture")
+      .verifiedEmail(true).build();
 
     Mockito.when(httpProxyProperties.getProxyServerHost()).thenReturn("");
     Mockito.when(restTemplate.exchange(any(), eq(User.class)))
@@ -42,13 +41,6 @@ public class UserServiceTest {
 
     User result = userService.searchUser("token");
 
-    assertEquals(result.getId(), "123");
-    assertEquals(result.getEmail(), "email@test");
-    assertTrue(result.getVerifiedEmail());
-    assertEquals(result.getName(), "name");
-    assertEquals(result.getGivenName(), "givenName");
-    assertEquals(result.getFamilyName(), "familyName");
-    assertEquals(result.getPicture(), "picture");
-    assertEquals(result.getLocale(), "locale");
+    assertEquals(user, result);
   }
 }
