@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class FileService {
 
-  @Autowired FileMapper fileMapper;
+  @Autowired private FileMapper fileMapper;
 
   @LatencyMonitor
   public void uploadFile(String fileName, byte[] fileData) {

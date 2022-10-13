@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CustomerService {
 
-  @Autowired CustomerMapper customerMapper;
+  @Autowired private CustomerMapper customerMapper;
 
   @LatencyMonitor
   public List<Customer> searchAllCustomers() {
