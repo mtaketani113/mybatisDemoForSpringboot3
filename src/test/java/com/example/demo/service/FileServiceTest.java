@@ -30,4 +30,20 @@ public class FileServiceTest {
 
   }
 
+  @Test
+  public void ファイルの削除テスト() {
+
+    fileService.uploadFile("testFileName", new byte[0]);
+    List<File> files = fileService.searchFiles();
+
+    assertEquals(1, files.size());
+
+    fileService.deleteFile(files.get(0).getId());
+    
+    // 0件になっていることを確認
+    files = fileService.searchFiles();
+    assertEquals(0, files.size());
+
+  }
+
 }
