@@ -31,19 +31,19 @@ public class FileServiceTest {
   }
 
   @Test
-  public void ファイルの削除テスト() {
+  public void ファイルの複数追加テスト() {
 
-    fileService.uploadFile("testFileName", new byte[0]);
+    for(int i =0 ; i < 10; i++){
+      fileService.uploadFile("testFileName" + i, new byte[0]);
+    }
     List<File> files = fileService.searchFiles();
 
-    assertEquals(1, files.size());
+    assertEquals(10, files.size());
 
-    fileService.deleteFile(files.get(0).getId());
-    
-    // 0件になっていることを確認
-    files = fileService.searchFiles();
-    assertEquals(0, files.size());
-
+    for(int i =0 ; i < 10; i++){
+      assertEquals("testFileName" + i, files.get(i).getFileName());
+      assertEquals(0, files.get(0).getFileData().length);
+    }
   }
 
 }
