@@ -21,7 +21,7 @@ public class CustomerApiController {
 
   @GetMapping("/api/customer")
   @NonAuthorize
-  public List<Customer> searchById() {
+  public List<Customer> searchAll() {
     return customerService.searchAllCustomers();
   }
 
