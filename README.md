@@ -3,7 +3,7 @@ SpringBoot3でMyBatisを動作させるデモです。
 以下のDDLでMySQLを作ることで動作させることができます。
 
 ```SQL
-CREATE TABLE customer (
+CREATE TABLE IF NOT EXISTS customer (
     id       INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
     name     TEXT,
     post     TEXT,
@@ -26,6 +26,27 @@ CREATE TABLE IF NOT EXISTS file_manager (
 ```
 
 Oracleも利用可能にする予定。
+
+Oracleの場合のSQL
+
+```SQL
+CREATE TABLE customer (
+    id       NUMBER GENERATED ALWAYS AS IDENTITY,
+    name     VARCHAR2(200),
+    post     VARCHAR2(200),
+    address  VARCHAR2(200),
+
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE file_manager (
+    id          NUMBER GENERATED ALWAYS AS IDENTITY,
+    file_name   VARCHAR2(200),
+    file_data   BLOB,
+
+    PRIMARY KEY(id)
+);
+```
 
 接続情報を編集または環境変数を登録してください。
 ```
