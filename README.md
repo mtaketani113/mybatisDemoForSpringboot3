@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS file_manager (
 
 Oracleも利用可能にする予定。
 
-Oracleの場合のSQL
+Oracleの場合のDDL
 
 ```SQL
 CREATE TABLE customer (
