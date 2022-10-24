@@ -25,7 +25,7 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.authorizeHttpRequests(authz -> authz
-        .mvcMatchers("/api/**").permitAll()
+        .requestMatchers("/api/**").permitAll()
         .anyRequest().authenticated())
         .oauth2Login()
         .and()
@@ -65,7 +65,7 @@ public class WebSecurityConfig {
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
-    return web -> web.ignoring().mvcMatchers("/api/**");
+    return web -> web.ignoring().requestMatchers("/api/**");
   }
 
   @Bean
