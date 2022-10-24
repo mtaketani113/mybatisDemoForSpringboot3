@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.example.demo.model.Customer;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -100,11 +99,11 @@ public class CustomerServiceTest {
 
   /**
    * 顧客情報のチェックメソッド
-   * 
+   *
    * @param expect
    * @param actual
    */
-  private void checkCustomer(Customer expect, Customer actual){
+  private void checkCustomer(Customer expect, Customer actual) {
     assertNotNull(actual.getId());
     assertEquals(expect.getPost(), actual.getPost());
     assertEquals(expect.getAddress(), actual.getAddress());
