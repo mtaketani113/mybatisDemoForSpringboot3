@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.time.Duration;
 import java.util.Locale;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +29,8 @@ public class LocaleConfig implements WebMvcConfigurer {
   public CookieLocaleResolver localeResolver() {
     CookieLocaleResolver localeResolver = new CookieLocaleResolver();
     localeResolver.setDefaultLocale(Locale.JAPAN);
-    localeResolver.setCookieMaxAge(604800);
+    Duration duration = Duration.ofDays(7);
+    localeResolver.setCookieMaxAge(duration);
     localeResolver.setCookiePath("/");
     return localeResolver;
   }
