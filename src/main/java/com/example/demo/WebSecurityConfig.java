@@ -1,15 +1,16 @@
 package com.example.demo;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
-
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,15 +19,14 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import static org.springframework.security.config.Customizer.withDefaults;
 
+@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.authorizeHttpRequests(authz -> authz
-        .mvcMatchers("/api/**").permitAll()
-        .anyRequest().authenticated())
+    http.authorizeHttpRequests(
+            authz -> authz.requestMatchers("/api/**").permitAll().anyRequest().authenticated())
         .oauth2Login()
         .and()
         .cors(withDefaults())
@@ -61,11 +61,6 @@ public class WebSecurityConfig {
   @Bean
   public RequestMatcher axiosRequestMatcher() {
     return new RequestHeaderRequestMatcher("Sec-Fetch-Mode", "cors");
-  }
-
-  @Bean
-  public WebSecurityCustomizer webSecurityCustomizer() {
-    return web -> web.ignoring().mvcMatchers("/api/**");
   }
 
   @Bean

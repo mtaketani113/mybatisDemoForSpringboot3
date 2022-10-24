@@ -25,15 +25,17 @@ public class UserServiceTest {
   @Test
   public void ユーザ検証のテスト() {
 
-    User user = User.builder()
-      .email("email@test")
-      .familyName("familyName")
-      .givenName("givenName")
-      .id("123")
-      .locale("locale")
-      .name("name")
-      .picture("picture")
-      .verifiedEmail(true).build();
+    User user =
+        User.builder()
+            .email("email@test")
+            .familyName("familyName")
+            .givenName("givenName")
+            .id("123")
+            .locale("locale")
+            .name("name")
+            .picture("picture")
+            .verifiedEmail(true)
+            .build();
 
     Mockito.when(httpProxyProperties.getProxyServerHost()).thenReturn("");
     Mockito.when(restTemplate.exchange(any(), eq(User.class)))
