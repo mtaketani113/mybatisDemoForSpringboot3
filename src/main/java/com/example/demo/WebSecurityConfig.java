@@ -9,7 +9,6 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
@@ -61,11 +60,6 @@ public class WebSecurityConfig {
   @Bean
   public RequestMatcher axiosRequestMatcher() {
     return new RequestHeaderRequestMatcher("Sec-Fetch-Mode", "cors");
-  }
-
-  @Bean
-  public WebSecurityCustomizer webSecurityCustomizer() {
-    return web -> web.ignoring().requestMatchers("/api/**");
   }
 
   @Bean
