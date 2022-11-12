@@ -5,7 +5,7 @@ ARG GITHUB_TOKEN
 WORKDIR /home/gradle/src
 RUN gradle clean build -x test -x spotbugsMain -x spotbugsTest --no-daemon 
 
-FROM openjdk:18-jdk-slim
+FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
